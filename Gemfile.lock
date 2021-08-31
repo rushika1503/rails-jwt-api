@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/acima-credit/actionable.git
+  revision: 0d0d757184d604eaae32f4062e158af973d6e35e
+  specs:
+    actionable (0.1.3)
+      activemodel (>= 4.1)
+      activesupport (>= 4.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -57,7 +65,7 @@ GEM
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
     bcrypt (3.1.16)
-    bootsnap (1.7.7)
+    bootsnap (1.8.1)
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
@@ -90,13 +98,15 @@ GEM
     minitest (5.14.4)
     msgpack (1.4.2)
     nio4r (2.5.8)
-    nokogiri (1.12.3-x86_64-linux)
+    nokogiri (1.12.4-x86_64-linux)
       racc (~> 1.4)
     pg (1.2.3)
     puma (4.3.8)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.4.1)
@@ -170,6 +180,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  actionable!
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug
@@ -178,6 +189,7 @@ DEPENDENCIES
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
+  rack-cors
   rails (~> 6.0.4, >= 6.0.4.1)
   rspec-rails
   spring
