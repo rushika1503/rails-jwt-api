@@ -41,10 +41,6 @@ module Sessions
         # exp = Time.now+24.hours.to_i 
         exp = Time.now.to_i + 4 * 3600
         @token = @_jwt_encoder.encode(exp: exp, data: {user_id: @user.id})
-        byebug
-        puts @token
-        @exp = exp 
-        byebug
       end
     end
   end

@@ -1,6 +1,6 @@
 class AuthenticationController < ApplicationController
-   before_action :authorize_request, except: :login
-  byebug
+  before_action :authorize_request, except: :login
+  
   def login
     result = Sessions::Authenticator.run(
       params[:email],
@@ -9,17 +9,14 @@ class AuthenticationController < ApplicationController
     )
     
     if result.success?
-      byebug
       render json: result.fixtures['token']
-
     else
       render json: { error: result.message }, status: :unauthorized
     end
-   
- 
   end
   
 private
+
   def login_params
     params.permit(:email, :password)
   end
