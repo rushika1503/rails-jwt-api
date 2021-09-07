@@ -1,26 +1,25 @@
 module Sessions
     class Authenticator < Actionable::Action
-      # extend Callable
+      
       byebug
-     
       step :find_user
       step :authenticate
       step :generate_token
-  
-      def initializer(
-        email:,
-        password:,
-        jwt_encoder: Sessions::TokenEncoder
+      def initialize(
+        email,
+        password,
+        jwt_encoder= Sessions::TokenEncoder
       )
         @_email= email
         @_password = password
-        @_jwt_encoder = @jwt_encoder
+        @_jwt_encoder = jwt_encoder
         @token = nil
+        @exp = nil
       end
   
       private
       def find_user
-        @user = User.find_by email: @email
+        @user = User.find_by email: @_email
         unless @user
           fail!(
             :find_user,
@@ -30,7 +29,7 @@ module Sessions
       end
   
       def authenticate
-        result = @user&.authenticate(params[:password])
+        result = @user&.authenticate(@_password)
         unless result
           fail!(
             :authenticate,
@@ -40,9 +39,14 @@ module Sessions
       end
   
       def generate_token
-        @token = @jwt_encoder.encode(user_id: @user.id, { exp: Time.now+24.hours.to_i }) # this fails
+        byebug
+        # exp = Time.now+24.hours.to_i 
+        exp = Time.now.to_i + 4 * 3600
+        @token = @_jwt_encoder.encode(exp: exp, data: {user_id: @user.id})
+        byebug
+        @exp = exp 
+        byebug
       end
-  
       # def authenticate_1
       #   # Business logic for authentication
       #   @user = User.find_by email: @email # if @user is blank?
