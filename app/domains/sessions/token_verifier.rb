@@ -11,6 +11,7 @@ module Sessions
       @_header = header
       @_jwt_decoder = jwt_decoder
       @decoded = nil
+      @tokenVerify = false
     end
     
     def parse_header
@@ -22,13 +23,21 @@ module Sessions
           "Failed: No user found"
         )
       end
-      byebug
     end
+
     def parse_token
       @decoded = @_jwt_decoder.decode(@_header)
-      byebug
     end
+
     def verify
+      @expiryTime = Time.at(@decoded[:exp])
+      currentTime = Time.now
+      if(@expiryTime > currentTime)
+        {
+          #if token is verified and not expried setting the value to true;
+          @tokenVerify = true
+        }
+      end
     end
   end
 end

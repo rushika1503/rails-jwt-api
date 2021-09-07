@@ -1,5 +1,5 @@
 class AuthenticationController < ApplicationController
-  before_action :authorize_request
+   before_action :authorize_request, except: :login
   byebug
   def login
     result = Sessions::Authenticator.run(
