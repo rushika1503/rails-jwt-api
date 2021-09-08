@@ -4,6 +4,5 @@ class CreateTest < Actionable::Action
     
     def notify
       puts "hi this is put" 
-      
     end
    end
