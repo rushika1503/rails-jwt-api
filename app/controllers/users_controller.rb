@@ -1,15 +1,11 @@
 class UsersController < ApplicationController
     before_action :authorize_request, except: :create
-    before_action :find_user, except: %i[create index]
   
     def create
       result = Users::Registration.run(user_params)
-      
       if result.success?
-        
         render json: result.fixtures['user']
       else
-        
         render json: { error: result.message }, status: :unauthorized
       end
     end

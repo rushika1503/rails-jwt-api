@@ -5,8 +5,7 @@ RSpec.describe "Authentications", type: :request do
         let(:user) { create(:user) }
         it 'Signins the user' do
         post '/auth/login', params: { email: user.email, password: '123456'} 
-        puts(response.body)
-        expect(response).to have_http_status(:created)
+        expect(response).to have_http_status(:ok)
         end
         
         it 'email does not exist or password incorrect' do
